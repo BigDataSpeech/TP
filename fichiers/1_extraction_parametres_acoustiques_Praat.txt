@@ -1,0 +1,39 @@
+# Ecole d'été Big Data & Speech, Roscoff, Juillet 2018
+# TP paramètres acoustiques
+# Nicolas Audibert et Cédric Gendrot
+# Partie 1 : extraction automatisée de paramètres acoustiques avec Praat
+##########################################################################
+
+# L'analyse acoustique avec Praat peut prendre beaucoup de temps, particulièrement sur une machine pas très puissante.
+# Pour la première partie de ce TP, nous allons travailler sur un tout petit sous-ensemble du corpus de parole conversationnelle NCCFr, avec des extraits de productions de deux locuteurs.
+# Nous basculerons ensuite sur un jeu de données plus large avec des analyses acoustiques déjà effectuées au préalable.
+
+######################
+
+# Commencer par exécuter chacune des 2 variantes du script Praat en mode fenêtré, avec les paramètres prédéfinis.
+# Les deux variantes effectuent l'analyse complète des voyelles orales du français codées selon le formalisme du LIMSI, en prenant 5 points de mesure répartis régulièrement.
+# En fonction de la façon dont les données sont organisées (et notamment de la répartition des productions entre hommes et femmes), il peut être préférable d'opter pour l'une ou l'autre de ces variantes.
+
+######################
+
+# Nous allons ensuite exécuter les mêmes scripts en ligne de commande
+
+# Option 1 : analyse de tous les fichiers .TextGrid d'un dossier (et des fichiers .wav de même nom) dont le nom correspond aux critères spécifiés par l'argument regex (2e argument du script)
+praat extract_acoustic_parameters_from_selected_labels_v9_regex.praat extraits_NCCFr *.TextGrid extraits_NCCFr resultats_analyse_acoustique.txt 1 -1 1 1 1 1 1 1 1 positions_5points.txt 75 600 M 5 voyelles_orales_francais_LIMSI.txt 50 1
+# Remarque : contrairement à l'exécution du même script directement depuis Praat en mode fenêtré, même si les fichiers .wav se trouvent dans le même dossier que les fichiers .TextGrid, il n'est pas possible de laisser vide le 3e argument
+
+# L'exécution du même script sur les mêmes données avec les mêmes paramètres est plus rapide qu'en mode fenêtré, car Praat n'affiche pas une boîte de dialogue à chaque fois qu'un calcul est effectué sur un extrait audio.
+# Pour un traitement à grande échelle, cette solution est donc à privilégier.
+
+# Option 2 : analyse des fichiers .TextGrid d'un dossier (et des fichiers .wav de même nom) indiqués dans le fichier liste_fichiers_TextGrid_extraits_NCCFr.txt (2e argument du script)
+praat extract_acoustic_parameters_from_selected_labels_v9_fileslist.praat extraits_NCCFr liste_fichiers_TextGrid_extraits_NCCFr.txt extraits_NCCFr resultats_analyse_acoustique.txt 1 -1 1 1 1 1 1 1 1 positions_5points.txt 75 600 M 5 voyelles_orales_francais_LIMSI.txt 50 1
+
+######################
+
+# A vous de jouer : faites l'analyse uniquement des fichiers qui correspondent aux productions du locuteur "nb1_1_16" (dans l'extrait du corpus proposé cela correspondra à un seul locuteur), en analysant uniquement les voyelles antérieures, et en désactivant l'analyse de l'intensité.
+# Faites les analyses sur les points temporels suivants en complément des mesures moyennes sur l'ensemble du segment : début du segment, 10% après le début, au milieu du segment, 10% avant la fin, à la fin du segment.
+
+######################
+
+# Supports de cours pour aller plus loin sur l'automatisation des analyses acoustiques avec Praat :
+# https://docs.google.com/document/d/1H9xFTF6SeM1mCHQDKa7ItXCWdV4mt3MMHeAOr0-41X8
