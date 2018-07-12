@@ -8,7 +8,7 @@ categories: tp
 
 **La variation**
 
--[schéma variation](https://bigdataspeech.github.io/TP/fichiers/Variation.pdf)
+- [schéma variation](https://bigdataspeech.github.io/TP/fichiers/Variation.pdf)
 
 **TextGrids (sans alignement)**
 

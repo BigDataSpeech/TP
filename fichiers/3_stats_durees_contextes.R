@@ -39,17 +39,17 @@ ggsave(filename = fichier_export_figure, plot = fig2)
 
 # Que faire si on souhaite obtenir une quantification et pas uniquement une illustration ?
 # Dans R, pour obtenir très facilement des tableaux croisés à 2 entrée, on peut utiliser la fonction table
-table(dataset$voyelleSup30ms, dataset$corpus)
+table(dataset$corpus, dataset$voyelleSup30ms)
 # Pour obtenir des proportions plutôt que des décomptes, il suffit d'utiliser la fonction prop.table (ici l'argument margin=1 indique que la somme de chaque ligne correspond à 100%)
-prop.table(table(dataset$voyelleSup30ms, dataset$corpus), margin = 1)
+prop.table(table(dataset$corpus, dataset$voyelleSup30ms), margin = 1)
 
 ###########################
 
 # Dans chacun des deux corpus, quelles sont les catégories vocaliques pour lesquelles la proportion de voyelles extra-courtes est la plus importante ?
 datasetESTER = dataset[dataset$corpus=="ESTER",]
-prop.table(table(datasetESTER$voyelleSup30ms, datasetESTER$voyelle), margin = 1)
+prop.table(table(datasetESTER$voyelle, datasetESTER$voyelleSup30ms), margin = 1)
 datasetNCCFr = dataset[dataset$corpus=="NCCFr",]
-prop.table(table(datasetNCCFr$voyelleSup30ms, datasetNCCFr$voyelle), margin = 1)
+prop.table(table(datasetNCCFr$voyelle, datasetNCCFr$voyelleSup30ms), margin = 1)
 
 ###########################
 
@@ -60,17 +60,17 @@ prop.table(table(datasetNCCFr$voyelleSup30ms, datasetNCCFr$voyelle), margin = 1)
 # On commence par sélectionner les occurences de "avec"
 datasetAvec = dataset[dataset$mot=="avec",]
 # Et on refait un tableau croisé sur le sous-ensemble sélectionné
-table(datasetAvec$voyelleSup30ms, datasetAvec$corpus)
-prop.table(table(datasetAvec$voyelleSup30ms, datasetAvec$corpus), margin = 1)
+table(datasetAvec$corpus, datasetAvec$voyelleSup30ms)
+prop.table(table(datasetAvec$corpus, datasetAvec$voyelleSup30ms), margin = 1)
 # Pour comparer entre /a/ et /E/ au sein de chaque corpus
 datasetAvecESTER = datasetAvec[datasetAvec$corpus=="ESTER",]
-prop.table(table(datasetAvecESTER$voyelleSup30ms, as.character(datasetAvecESTER$voyelle)), margin = 1)
+prop.table(table(as.character(datasetAvecESTER$voyelle), datasetAvecESTER$voyelleSup30ms), margin = 1)
 datasetAvecNCCFr = datasetAvec[datasetAvec$corpus=="NCCFr",]
-prop.table(table(datasetAvecNCCFr$voyelleSup30ms, as.character(datasetAvecNCCFr$voyelle)), margin = 1)
+prop.table(table(as.character(datasetAvecNCCFr$voyelle), datasetAvecNCCFr$voyelleSup30ms), margin = 1)
 # Remarque : on applique ici la fonction as.character pour convertir la variable voyelle avant de générer le tableau croisé, car le type factor inclut toutes les modalités initialement présentes, même si certaines ne sont pas représentées dans le sous-ensemble sélectionné
-# Si on ne le faisait pas, on obtiendrait un tableau avec de nombreuses colonnes à 0%
+# Si on ne le faisait pas, on obtiendrait un tableau avec de nombreuses lignes à 0%
 # Illustration sur le cas du corpus ESTER :
-prop.table(table(datasetAvecESTER$voyelleSup30ms, datasetAvecESTER$voyelle), margin = 1)
+prop.table(table(datasetAvecESTER$voyelle, datasetAvecESTER$voyelleSup30ms), margin = 1)
 
 ############################
 
@@ -84,7 +84,7 @@ table(dataset$contexteGD_lieu)
 sort(table(dataset$contexteGD_lieu), decreasing = T)
 
 # Autre possibilité (qui va nous permettre de combiner 2 critères) : convertir la table de fréquences en objet data.frame
-frequences_contextes = as.data.frame(table(dataset$contexteGD_lieu, dataset$corpus))
+frequences_contextes = as.data.frame(table(dataset$corpus, dataset$contexteGD_lieu))
 # Les noms de colonnes par défaut ne sont pas très explicites, rectifions cela
 colnames(frequences_contextes) = c("contexteGD_lieu", "corpus", "Noccurences")
 # On peut ensuite trier, filtrer, etc.
